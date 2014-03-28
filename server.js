@@ -46,6 +46,8 @@ if (cluster.isMaster) {
 
   app.get('/', views.index);
 
+  app.get('/crash', api.crash)
+
   // io.sockets.on("connection", function(socket) {
   //   console.log('socket call handled by worker with pid ' + process.pid);
   //   return setInterval(function () {
@@ -56,4 +58,12 @@ if (cluster.isMaster) {
   // });
 
   io.sockets.on('connection', require('./routes/socket'));
+
+  process.on('uncaughtException', function(err){
+    console.error((new Date).toUTCString() + ' uncaughtException:', err.message)
+    console.error(err.stack)
+    process.exit(1)
+  })
+
+
 }
