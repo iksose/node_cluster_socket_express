@@ -47,6 +47,7 @@ if (cluster.isMaster) {
   app.get('/', views.index);
 
   app.get('/crash', api.crash)
+  app.get('/crash2', api.crash2)
 
   // io.sockets.on("connection", function(socket) {
   //   console.log('socket call handled by worker with pid ' + process.pid);
