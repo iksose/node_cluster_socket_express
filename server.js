@@ -46,12 +46,14 @@ if (cluster.isMaster) {
 
   app.get('/', views.index);
 
-  io.sockets.on("connection", function(socket) {
-    console.log('socket call handled by worker with pid ' + process.pid);
-    return setInterval(function () {
-    socket.emit('news', {
-      time: (new Date()).toString()
-    });
-  }, 1000);
-  });
+  // io.sockets.on("connection", function(socket) {
+  //   console.log('socket call handled by worker with pid ' + process.pid);
+  //   return setInterval(function () {
+  //   socket.emit('news', {
+  //     time: (new Date()).toString()
+  //   });
+  // }, 1000);
+  // });
+
+  io.sockets.on('connection', require('./routes/socket'));
 }
